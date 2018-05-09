@@ -4,6 +4,12 @@ body, html {
   font-weight: 200;
   font-family: 'PingFang SC', 'STHeitiSC-Light', 'Helvetica-Light', arial, sans-serif;
 }
+ul{
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
 /*清除浮动*/
 .clearfix {
   display: inline-block;
