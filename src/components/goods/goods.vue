@@ -10,10 +10,10 @@
     </div>
     <div class="foods-wrapper" ref="foodWrapper">
       <ul>
-        <li v-for="item in goods" class="good-item food-list-hook" ref="foodList">
+        <li v-for="item in goods" class="good-item food-list-hook" ref="foodList" >
           <h2 class="title">{{item.name}}</h2>
           <ul>
-            <li v-for="food in item.foods" class="food-item">
+            <li v-for="food in item.foods" class="food-item" @click="foodDetail(food)">
               <div class="icon">
                 <img :src="food.icon" width="58" height="58" alt="">
               </div>
@@ -40,6 +40,7 @@
       <shopcart :selectFoods="selectFoods" :min-price="seller.minPrice"
                 :delivery-price="seller.deliveryPrice" ref="shopcart"></shopcart>
     </div>
+    <food :food="selectedFood" ref="food"></food>
   </div>
 </template>
 
@@ -48,9 +49,11 @@
   import BScroll from 'better-scroll'
   import CartControl from "../cart-control/cart-control";
   import Shopcart from "../shopcart/shopcart";
+  import Food from "../food/food";
   const debug = process.env.NODE_ENV !== 'production';
   export default {
     components: {
+      Food,
       Shopcart,
       CartControl
     },
@@ -59,6 +62,7 @@
         goods: {},
         listHeight: [],
         scrollY: 0,
+        selectedFood:{}
       }
     },
     props: {
@@ -107,6 +111,10 @@
     },
 
     methods: {
+      foodDetail(food){
+        this.selectedFood = food;
+        this.$refs.food.show();
+      },
       /*两个区块分别能够滚动*/
       _initScroll() {
         this.menuScroll = new BScroll(this.$refs.menuWrapper, {
